@@ -16,35 +16,35 @@ private:
     string borrowerName;
 
 public:
-    // ÎŞ²Î¹¹Ôìº¯Êı
+    // æ— å‚æ„é€ å‡½æ•°
     BookNode();
 
-    // ÓĞ²Î¹¹Ôìº¯Êı
+    // æœ‰å‚æ„é€ å‡½æ•°
     BookNode(const string& title,const string& category, const string& author, const string& isbn, bool isBorrowed = false, string borrowerName = " ");
 
-    // »ñÈ¡Êé¼®ĞÅÏ¢
+    // è·å–ä¹¦ç±ä¿¡æ¯
     string getTitle() const { return title; }
     string getAuthor() const { return author; }
     string getISBN() const { return ISBN; }
     bool getIsBorrowed() const { return isBorrowed; }
     string getBorrowerName() const { return borrowerName; }
 
-    // ÉèÖÃÊé¼®ĞÅÏ¢
+    // è®¾ç½®ä¹¦ç±ä¿¡æ¯
     void setTitle(const string& title) { this->title = title; }
     void setAuthor(const string& author) { this->author = author; }
     void setISBN(const string& isbn) { this->ISBN = isbn; }
     void setIsBorrowed(bool borrowed) { isBorrowed = borrowed; }
     void setBorrowerName(const string& name) { borrowerName = name; }
 
-    // ÖØÔØÊä³öÔËËã·û
-    friend ostream& operator<<(ostream& os, const BookNode& book);
+    // é‡è½½è¾“å‡ºè¿ç®—ç¬¦
+    friend ostream& operator<<(ostream& out, const BookNode& book);
 
-    // ÉùÃ÷ÓÑÔªÀà
+    // å£°æ˜å‹å…ƒç±»
     friend class CategoryNode;
 };
 
-// ÖØÔØÊä³öÔËËã·ûµÄÊµÏÖ
-ostream& operator<<(ostream& os, const BookNode& book);
+// é‡è½½è¾“å‡ºè¿ç®—ç¬¦çš„å®ç°
+ostream& operator<<(ostream& out, const BookNode& book);
 ostream& operator<<(ostream& out, const BookNode& book) {
     out << "Title: " << book.title << "Category: " << book.category  << ", Author: " << book.author << ", ISBN: " << book.ISBN
         << ", Borrowed: " << (book.isBorrowed ? "Yes" : "No") << ", Borrower: " << book.borrowerName;
@@ -57,46 +57,43 @@ private:
     LinkList<BookNode> books;
 
 public:
-    // ÎŞ²Î¹¹Ôìº¯Êı
+    // æ— å‚æ„é€ å‡½æ•°
     CategoryNode();
 
-    // ÓĞ²Î¹¹Ôìº¯Êı
+    // æœ‰å‚æ„é€ å‡½æ•°
     CategoryNode(const string& name, LinkList<BookNode>& books);
     
-    //Ìí¼ÓÀà±ğ
+    //æ·»åŠ ç±»åˆ«
     void addCategory(string category);
 
-    // ÏòÀà±ğÖĞÌí¼ÓÊé¼®
+    // å‘ç±»åˆ«ä¸­æ·»åŠ ä¹¦ç±
     void addBook(BookNode* book);
 
-    // ²éÕÒÊé¼®
+    // æŸ¥æ‰¾ä¹¦ç±
     BookNode* findBookByISBN(const string& isbn);
 
-    // ½èÊé²Ù×÷
+    // å€Ÿä¹¦æ“ä½œ
     bool borrowBookByISBN(const string& isbn, const string& borrower);
 
-    // »¹Êé²Ù×÷
+    // è¿˜ä¹¦æ“ä½œ
     bool returnBookByISBN(const string& isbn);
 
-    // ²åÈëĞÂÊé
+    // æ’å…¥æ–°ä¹¦
     //void insertBook(const string& title, const string& author, const string& isbn);
 
-    // É¾³ıÊé¼®
+    // åˆ é™¤ä¹¦ç±
     void deleteBookByISBN(const string& isbn);
 
-    // ²éÑ¯Êé¼®×´Ì¬
+    // æŸ¥è¯¢ä¹¦ç±çŠ¶æ€
     bool queryBookStatus(const string& isbn);
 
-    // Êä³öÀà±ğÖĞµÄËùÓĞÊé¼®ĞÅÏ¢
+    // è¾“å‡ºç±»åˆ«ä¸­çš„æ‰€æœ‰ä¹¦ç±ä¿¡æ¯
     void printBooks(const string category) const;
 
-    // »ñÈ¡Àà±ğÃû³Æ
+    // è·å–ç±»åˆ«åç§°
     string getCategoryName() const { return categoryName; }
 
-    // ¸ù¾İÀà±ğ²åÈëÊé¼®
-    static void insertBookByCategory(LinkList<CategoryNode>& categories,BookNode book);
-
-    // Êä³öËùÓĞÊé¼®ĞÅÏ¢
+    // è¾“å‡ºæ‰€æœ‰ä¹¦ç±ä¿¡æ¯
     static void printAllBooks(const LinkList<CategoryNode>& categories);
 };
 

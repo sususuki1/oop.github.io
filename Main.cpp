@@ -115,7 +115,7 @@ int main()
 			listClassics.Append(getCategory());
 			break;
 		case '2':
-			classics.addBook(getBook());
+			//classics.addBook(getBook());
 			break;
 		case '3':	break;
 		case '4':	break;

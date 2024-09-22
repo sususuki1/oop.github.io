@@ -26,6 +26,7 @@ public:
     string getTitle() const { return title; }
     string getAuthor() const { return author; }
     string getISBN() const { return ISBN; }
+    string getCategory() const { return category; }
     bool getIsBorrowed() const { return isBorrowed; }
     string getBorrowerName() const { return borrowerName; }
 
@@ -85,11 +86,12 @@ public:
     // 输出类别中的所有书籍信息
     void printBooks(const string &category) const;
 
-    // 获取类别名称
-    // string getCategoryName() const { return categoryName; }
+    //获取类别名称
+    string getCategoryName() const { return categoryName; }
 
     // 输出所有书籍信息
     static void printAllBooks( LinkList<CategoryNode>& categories);
+
 };
 
 #endif

@@ -47,22 +47,59 @@ int Choice(const char *prompt, const char *options)		// 函数定义。输出提示信息pr
 }
 
 
-CategoryNode getCategory()
+void getCategory(LinkList<CategoryNode>& listCategory)
 {
 	printf("输入目录名称：");
 	string str;
 	cin>>str;
 	LinkList<BookNode> listbooks;
 	CategoryNode newcategory = {str,listbooks};
-	return newcategory;
+	listClassics.Append(newcategory);
 }
 
-BookNode *getBook()
+void findCategory(LinkList<CategoryNode>& listCategory,BookNode& book)
 {
+	int n = listCategory.NumNodes();
+	string target_category = book.getCategory();
+	for(int i=0;i<n;i++)
+	{
+		listCategory.Go(i);
+		if(listCategory.CurData().getCategoryName() == target_category)
+		{
+			listCategory.CurData().addBook(&book);
+			return;
+		}
+	}
+	LinkList<BookNode> listBooks;
+	listBooks.Append(book);
+	CategoryNode newCategoryNode = {target_category,listBooks};
+}
+
+void getBook(LinkList<CategoryNode>& listCategory)
+{
+	printf("输入标题、类别、作者、ISBN:");
 	string title,category,author,isbn;
 	cin>>title>>category>>author>>isbn;
-	BookNode *book = new BookNode(title,category,author,isbn);
-	return book;
+	BookNode book = {title,category,author,isbn};
+	findCategory(listCategory,book);
+	listCategory.GoTop();
+}
+
+void findBook(LinkList<CategoryNode>& listCategory)
+{
+	printf("输入书籍的ISBN号:");
+	string isbn;
+	int n = listCategory.NumNodes();
+	cin>>isbn;
+	for(int i=0;i<n;i++)
+	{
+		listCategory.Go(i);
+		BookNode* book = listCategory.CurData().findBookByISBN(isbn);
+		if(book != nullptr)
+		{
+			
+		}
+	}
 }
 
 int main()
@@ -111,13 +148,14 @@ int main()
 		switch(key)
 		{
 		case '1':
-			//classics.addCategory(listClassics,);
-			listClassics.Append(getCategory());
+			getCategory(listClassics);
 			break;
 		case '2':
-			//classics.addBook(getBook());
+			getBook(listClassics);
 			break;
-		case '3':	break;
+		case '3':
+			findBook(listClassics);
+			break;
 		case '4':	break;
 		case '5':	break;
 		}

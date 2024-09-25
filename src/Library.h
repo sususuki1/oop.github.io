@@ -87,7 +87,7 @@ public:
     bool queryBookStatus(const string& isbn);
 
     // 输出类别中的所有书籍信息
-    void printBooks(const string &category) const;
+    void printBooks(const string &category);
 
     //获取类别名称
     string getCategoryName() const { return categoryName; }
@@ -95,6 +95,8 @@ public:
     // 输出所有书籍信息
     void printAllBooks();
 
+    //查询是否存在相同的ISBN编码
+    bool checkRepaetByISBN(string checkISBN);
 };
 
 #endif

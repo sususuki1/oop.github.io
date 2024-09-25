@@ -1,8 +1,10 @@
 #ifndef LIBRARYOPERATOR_H
 #define LIBRARYOPERATOR_H
+#include <cstdio>
 #include <iostream>
 #include "LinkList.h"
 #include "Library.h"
+
 void findCategory(LinkList<CategoryNode>& listCategory,BookNode& book)
 {
 	int n = listCategory.NumNodes();
@@ -22,15 +24,34 @@ void findCategory(LinkList<CategoryNode>& listCategory,BookNode& book)
 	listCategory.Append(newCategoryNode);
 }
 
+bool checkRepeatByISBNViaList(LinkList<CategoryNode>& listCategory,string checkISBN)
+{
+	int n = listCategory.NumNodes();
+	for(int i=0;i<n;i++)
+	{
+		listCategory.Go(i);
+		if(listCategory.CurData().checkRepaetByISBN(checkISBN))
+			return true;
+	}
+	return false;
+}
+
 void getBook(LinkList<CategoryNode>& listCategory)
 {
 	printf("输入标题、类别、作者、ISBN:");
 	string title,category,author,isbn;
 	cin>>title>>category>>author>>isbn;
 	BookNode book = {title,category,author,isbn};
-	findCategory(listCategory,book);
-	listCategory.GoTop();
-	printf("成功添加书籍");
+	if(!checkRepeatByISBNViaList(listCategory, isbn))
+	{
+		findCategory(listCategory,book);
+		listCategory.GoTop();
+		printf("成功添加书籍");
+	}
+	else 
+	{
+		printf("存在相同的ISBN号,添加书籍失败！");
+	}
 }
 
 void findBook(LinkList<CategoryNode>& listCategory)
@@ -155,16 +176,21 @@ void printAllBook(LinkList<CategoryNode>& listCategory)
 	for(int i=0;i<n;i++)
 	{
 		listCategory.Go(i);
-		listCategory.CurData().printAllBooks();
+		if(listCategory.CurNode() != nullptr)
+			listCategory.CurData().printAllBooks();
 	}
-	printf("未能找到该类别\n");
 	return;
 }
 
+
+//测试用代码
 void creatBook(LinkList<CategoryNode>& listCategory,string title,string category,string author,string isbn)
 {
 	BookNode book = {title,category,author,isbn};
 	findCategory(listCategory,book);
 	listCategory.GoTop();
 }
+
+
+
 #endif

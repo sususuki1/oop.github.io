@@ -84,7 +84,7 @@ int main()
 		cout << "5 --- 删除书籍" << endl;
 		cout << "6 --- 输出类别中的所有书籍信息" << endl;
 		cout << "7 --- 输出所有书籍信息" << endl;
-		key = Choice("\n请选择", "123456789\x1b");
+		key = Choice("\n请选择", "1234567\x1b");
 		cout << "\n\n";
 		if(key==27)		// '\x1b'等于27，指ESC键
 			break;

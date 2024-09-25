@@ -90,19 +90,54 @@ bool CategoryNode::queryBookStatus(const std::string& isbn)
     return false;
 }
 
-void CategoryNode::printBooks(const std::string& category) const
+void CategoryNode::printBooks(const std::string& category)
 {
     if (categoryName == category)
     {
-        listBooks.ShowList();
+        // listBooks.ShowList();
+        printf("---%s---\n",category.c_str());
+        int n = listBooks.NumNodes();
+        for(int i=0;i<n;i++)
+        {
+            listBooks.Go(i);
+            if(listBooks.CurNode() != nullptr)
+            {
+                const BookNode book = listBooks.CurData();
+                printf("%d:\n书名:%s\t类别:%s\t作者:%s\nISBN:%s\t是否被借阅:%s\t%s%s\n",i+1,book.getTitle().c_str(),book.getCategory().c_str()
+                ,book.getAuthor().c_str(),book.getISBN().c_str(),book.getIsBorrowed()?"是":"否",book.getIsBorrowed()?"借阅人姓名:":"",book.getIsBorrowed()?book.getBorrowerName().c_str():"");
+            }
+        }
     }
 }
 
 void CategoryNode::printAllBooks()
 {
-    listBooks.ShowList();
+    printf("---%s---\n",categoryName.c_str());
+    int n = listBooks.NumNodes();
+    for(int i=0;i<n;i++)
+    {
+        listBooks.Go(i);
+        if(listBooks.CurNode() != nullptr)
+        {
+            const BookNode book = listBooks.CurData();
+            printf("%d:\n书名:%s\t类别:%s\t作者:%s\nISBN:%s\t是否被借阅:%s\t%s%s\n",i+1,book.getTitle().c_str(),book.getCategory().c_str()
+            ,book.getAuthor().c_str(),book.getISBN().c_str(),book.getIsBorrowed()?"是":"否",book.getIsBorrowed()?"借阅人姓名:":"",book.getIsBorrowed()?book.getBorrowerName().c_str():"");
+        }
+    }
 }
 
+
+bool CategoryNode::checkRepaetByISBN(string checkISBN)
+{
+    int n = listBooks.NumNodes();
+    for(int i=0;i<n;i++)
+    {
+        listBooks.Go(i);
+        if(listBooks.CurData().getISBN() == checkISBN)
+            return true;
+    }
+    return false;
+}
 
 
 ostream& operator<<(ostream& out, const BookNode& book) {

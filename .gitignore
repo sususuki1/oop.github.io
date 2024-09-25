@@ -53,3 +53,5 @@ build/CMakeFiles/MyCppExecutable.dir/src/Library.cpp.obj.d
 build/CMakeFiles/MyCppExecutable.dir/src/Main.cpp.obj
 build/CMakeFiles/MyCppExecutable.dir/src/Main.cpp.obj.d
 CMakeLists.txt
+.cache/clangd/index/LibraryOperator.h.4FD7B4941DC02579.idx
+build/.cmake/api/v1/reply/index-2024-09-25T14-00-38-0706.json
